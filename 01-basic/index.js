@@ -19,6 +19,8 @@ io.on('connection', function (socket) {
     //print out the chat message event
     socket.on('chat message', function (msg) {
         console.log('message: ' + msg);
+        //emit the message to all sockets, including the sender
+        io.emit('chat message', msg);
     });
 });
 
