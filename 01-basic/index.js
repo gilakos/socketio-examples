@@ -13,8 +13,13 @@ app.get('/', function (req, res) {
 });
 
 //Listen on the connection event for incoming sockets, and log it to the console.
-io.on('connection', function(socket){
-  console.log('a user connected');
+io.on('connection', function (socket) {
+    //print out the connection event to the server
+    //console.log('a user connected');
+    //print out the chat message event
+    socket.on('chat message', function (msg) {
+        console.log('message: ' + msg);
+    });
 });
 
 
