@@ -55,23 +55,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 
-<script>
-    //Load the socketio client, exposing io global
-    //Notice here not specifying any URL when call io(), since it defaults to trying to connect to the host that serves the page.
-    var socket = io();
-    //Let’s make it so that when the user types in a message, the server gets it as a chat message event. 
-    $('form').submit(function() {
-        //emit a chat message object from the form object
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-    });
-    //When emitted from server, append the mesage to the list of messages
-    socket.on('chat message', function(msg) {
-        $('#messages').append($('<li>').text(msg));
-    });
 
-</script>
 
 <body>
     <ul id="messages"></ul>
@@ -79,6 +63,26 @@
         <input id="m" autocomplete="off" />
         <button>Send</button>
     </form>
+    <script>
+        //***All of this script needs to be in the body***
+        //Load the socketio client, exposing io global
+        //Notice here not specifying any URL when call io(), since it defaults to trying to connect to the host that serves the page.
+        var socket = io();
+        //Let’s make it so that when the user types in a message, the server gets it as a chat message event. 
+        $('form').submit(function() {
+            //emit a chat message object from the form object
+            socket.emit('chat message', $('#m').val());
+            //console.log($('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        //When emitted from server, append the mesage to the list of messages
+        socket.on('chat message', function(msg) {
+            $('#messages').append($('<li>').text(msg));
+        });
+
+    </script>
+
 </body>
 
 </html>
